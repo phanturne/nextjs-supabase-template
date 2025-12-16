@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
-import { login } from "./actions";
+import { resetPassword } from "./actions";
 
-export default function LoginPage() {
+export default function ResetPasswordPage() {
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -22,15 +22,15 @@ export default function LoginPage() {
               />
             </div>
             <h1 className="text-3xl font-semibold tracking-tight">
-              Welcome back
+              Reset your password
             </h1>
             <p className="mt-2 text-center text-sm text-muted-foreground">
-              Log in to your Metadachi account
+              Enter your email to receive a password reset link
             </p>
           </div>
 
           {/* Form */}
-          <form action={login} className="space-y-5">
+          <form action={resetPassword} className="space-y-5">
             <div className="space-y-2">
               <label
                 htmlFor="email"
@@ -50,51 +50,32 @@ export default function LoginPage() {
               />
             </div>
 
-            <div className="space-y-2">
-              <label
-                htmlFor="password"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Password
-              </label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                minLength={6}
-                placeholder="••••••••"
-                required
-                className="h-11"
-              />
-            </div>
-
-            <div className="flex items-center justify-between pt-2">
-              <Link
-                href="/auth/register"
-                className="text-sm text-primary hover:underline"
-              >
-                Don&apos;t have an account? Sign up now
-              </Link>
-            </div>
-
             <Button type="submit" className="w-full h-11" size="lg">
-              Log in
+              Send reset link
             </Button>
           </form>
 
           {/* Help Text */}
-          <p className="mt-6 text-center text-xs text-muted-foreground">
-            Having trouble logging in?{" "}
-            <Link
-              href="/auth/reset-password"
-              className="text-primary hover:underline"
-            >
-              Reset your password
-            </Link>
-          </p>
+          <div className="mt-6 space-y-2">
+            <p className="text-center text-xs text-muted-foreground">
+              Remember your password?{" "}
+              <Link href="/auth/login" className="text-primary hover:underline">
+                Log in
+              </Link>
+            </p>
+            <p className="text-center text-xs text-muted-foreground">
+              Don&apos;t have an account?{" "}
+              <Link
+                href="/auth/register"
+                className="text-primary hover:underline"
+              >
+                Sign up
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+

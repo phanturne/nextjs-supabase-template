@@ -2,9 +2,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
-import { login } from "./actions";
+import { updatePassword } from "./actions";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
-export default function LoginPage() {
+export default async function UpdatePasswordPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // If user is not authenticated (no valid reset session), redirect to request page
+  if (!user) {
+    redirect("/auth/reset-password");
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -22,46 +34,49 @@ export default function LoginPage() {
               />
             </div>
             <h1 className="text-3xl font-semibold tracking-tight">
-              Welcome back
+              Set new password
             </h1>
             <p className="mt-2 text-center text-sm text-muted-foreground">
-              Log in to your Metadachi account
+              Enter your new password below
             </p>
           </div>
 
           {/* Form */}
-          <form action={login} className="space-y-5">
-            <div className="space-y-2">
-              <label
-                htmlFor="email"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Email
-              </label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                inputMode="email"
-                autoComplete="email"
-                placeholder="you@example.com"
-                required
-                className="h-11"
-              />
-            </div>
-
+          <form action={updatePassword} className="space-y-5">
             <div className="space-y-2">
               <label
                 htmlFor="password"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                Password
+                New Password
               </label>
               <Input
                 id="password"
                 name="password"
                 type="password"
-                autoComplete="current-password"
+                autoComplete="new-password"
+                minLength={6}
+                placeholder="••••••••"
+                required
+                className="h-11"
+              />
+              <p className="text-xs text-muted-foreground">
+                Must be at least 6 characters
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <label
+                htmlFor="confirmPassword"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Confirm Password
+              </label>
+              <Input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                autoComplete="new-password"
                 minLength={6}
                 placeholder="••••••••"
                 required
@@ -69,28 +84,15 @@ export default function LoginPage() {
               />
             </div>
 
-            <div className="flex items-center justify-between pt-2">
-              <Link
-                href="/auth/register"
-                className="text-sm text-primary hover:underline"
-              >
-                Don&apos;t have an account? Sign up now
-              </Link>
-            </div>
-
             <Button type="submit" className="w-full h-11" size="lg">
-              Log in
+              Update password
             </Button>
           </form>
 
           {/* Help Text */}
           <p className="mt-6 text-center text-xs text-muted-foreground">
-            Having trouble logging in?{" "}
-            <Link
-              href="/auth/reset-password"
-              className="text-primary hover:underline"
-            >
-              Reset your password
+            <Link href="/auth/login" className="text-primary hover:underline">
+              Back to login
             </Link>
           </p>
         </div>
@@ -98,3 +100,4 @@ export default function LoginPage() {
     </div>
   );
 }
+

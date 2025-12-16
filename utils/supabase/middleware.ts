@@ -44,8 +44,10 @@ export async function updateSession(request: NextRequest) {
   const isAuthPage = pathname.startsWith("/auth");
   // Don't redirect from /auth/confirm as it's needed for email verification
   const isAuthConfirm = pathname.startsWith("/auth/confirm");
+  // Don't redirect from /auth/reset-password/update as it's needed for password reset
+  const isPasswordResetUpdate = pathname.startsWith("/auth/reset-password/update");
 
-  if (user && isAuthPage && !isAuthConfirm) {
+  if (user && isAuthPage && !isAuthConfirm && !isPasswordResetUpdate) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     const redirectResponse = NextResponse.redirect(url);
