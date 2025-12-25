@@ -4,7 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { login } from "./actions";
 
-export default function LoginPage() {
+type Props = {
+  searchParams: Promise<{ error?: string }>;
+};
+
+export default async function LoginPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const error = params.error;
+
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -28,6 +35,13 @@ export default function LoginPage() {
               Log in to your Metadachi account
             </p>
           </div>
+
+          {/* Error Message */}
+          {error === "invalid_credentials" && (
+            <div className="mb-4 rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+              Invalid email or password. Please try again.
+            </div>
+          )}
 
           {/* Form */}
           <form action={login} className="space-y-5">
