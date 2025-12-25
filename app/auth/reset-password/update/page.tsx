@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { createClient } from "@/utils/supabase/server";
 import Image from "next/image";
 import Link from "next/link";
-import { updatePassword } from "./actions";
-import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { updatePassword } from "./actions";
 
 export default async function UpdatePasswordPage() {
   const supabase = await createClient();
@@ -27,7 +27,7 @@ export default async function UpdatePasswordPage() {
             <div className="mb-4 flex h-16 w-16 items-center justify-center">
               <Image
                 src="/icon-circle.png"
-                alt="Metadachi logo"
+                alt="nextjs-supabase-template logo"
                 width={64}
                 height={64}
                 className="h-16 w-16"

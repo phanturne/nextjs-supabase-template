@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Metadachi",
+  title: "nextjs-supabase-template",
   description: "Create AI knowledge spaces",
 };
 

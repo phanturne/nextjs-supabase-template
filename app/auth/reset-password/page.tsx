@@ -15,7 +15,7 @@ export default function ResetPasswordPage() {
             <div className="mb-4 flex h-16 w-16 items-center justify-center">
               <Image
                 src="/icon-circle.png"
-                alt="Metadachi logo"
+                alt="nextjs-supabase-template logo"
                 width={64}
                 height={64}
                 className="h-16 w-16"

@@ -61,7 +61,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
               <Image
                 src="/icon-circle.png"
-                alt="Metadachi logo"
+                alt="nextjs-supabase-template logo"
                 width={32}
                 height={32}
               />
