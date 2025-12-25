@@ -35,8 +35,10 @@ export default defineConfig({
     url: "http://localhost:3000",
     reuseExistingServer: true,
     timeout: 120_000,
-    env: {
-      ...process.env,
-    },
+    env: Object.fromEntries(
+      Object.entries(process.env).filter(
+        ([_, value]) => value !== undefined
+      )
+    ) as { [key: string]: string },
   },
 });
